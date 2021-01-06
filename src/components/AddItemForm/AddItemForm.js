@@ -1,12 +1,20 @@
 import React, { Component } from 'react'
 
 class AddItemForm extends Component {
+
+    state = {
+        newItem: {
+            description: '',
+            url: ''
+        }
+    }
+
     render() {
         return (
             <div>
                 <p>This is the add item form</p>
                 <form>
-                    <p>Form goes here</p>
+                    <input placeholder="description" onChange={this.handleChangeFor()} />
                 </form>
             </div>
         )
