@@ -43,12 +43,12 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 /**
  * Delete an item if it's something the logged in user added
  */
-router.delete('/:id', rejectUnauthenticated, (req, res) => {
+router.delete('/:id/:user_id', rejectUnauthenticated, (req, res) => {
   console.log('req.user', req.user);
   console.log('req.body:', req.body);
   console.log('req.params:', req.params);
-  let sqlText = `DELETE from "item" where $1 = $2 && WHERE id=$3;`;
-  pool.query(sqlText, [req.params.user_id, req.user.id, req.body.id])
+  let sqlText = `DELETE from "item" WHERE $1 = $2 AND id=$3;`;
+  pool.query(sqlText, [req.params.user_id, req.user.id, req.params.id])
   .then((result) => {
     res.sendStatus(200)
   }).catch ((error) => {
