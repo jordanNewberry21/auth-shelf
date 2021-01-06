@@ -16,26 +16,15 @@ class LandingPage extends Component {
     this.props.history.push('/login');
   };
 
-  componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_SHELF'})
-  }
-
   render() {
     return (
       <div className="container">
-        <p>{JSON.stringify(this.props.store.shelf)}</p>
         <h2>{this.state.heading}</h2>
 
         <div className="grid">
           <div className="grid-col grid-col_8">
-            <ul>
-              {this.props.store.shelf.map(item => {
-                return(
-                <li key={item.id}>{item.description}
-                <img src={item.image_url} /></li>
-                )
-              })}
-            </ul>
+            
+            
           </div>
           <div className="grid-col grid-col_4">
             <RegisterForm />
