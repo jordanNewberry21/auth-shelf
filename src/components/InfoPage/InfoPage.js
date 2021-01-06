@@ -16,6 +16,10 @@ class InfoPage extends Component {
     this.props.dispatch({ type: 'FETCH_SHELF'})
   }
 
+  deleteItem = (event, itemId, userId) => {
+    this.props.dispatch({ type: 'DELETE_ITEM', payload: {itemId: itemId, userId: userId}})
+  }
+
   render() {
     return(
       <div className="container">
@@ -26,8 +30,11 @@ class InfoPage extends Component {
             <ul>
               {this.props.store.shelf.map(item => {
                 return(
-                <li key={item.id}>{item.description}
-                <img src={item.image_url} /></li>
+                <li data={item.user_id} key={item.id}>
+                  {item.description}
+                  <img src={item.image_url} />
+                  <button onClick={(event) => this.deleteItem(event, item.id, item.user_id)}>Delete Item</button>
+                </li>
                 )
               })}
             </ul>
