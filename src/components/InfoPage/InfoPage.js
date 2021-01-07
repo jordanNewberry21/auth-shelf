@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import AddItemForm from '../AddItemForm/AddItemForm';
 
-import addItemForm from '../AddItemForm/AddItemForm';
+import './InfoPage.css'
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
@@ -63,13 +63,15 @@ class InfoPage extends Component {
         <h2>Info Page</h2>
         <AddItemForm />
         <div className="grid">
-          <div className="grid-col grid-col_8">
-            <ul>
+          <div >
+            <div className="flex">
               {this.props.store.shelf.map(item => {
                 return (
-                  <li data={item.user_id} key={item.id}>
+                  <div className="margin" data={item.user_id} key={item.id}>
                     {item.description}
-                    <img src={item.image_url} />
+                    <br />
+                    <img src={item.image_url} alt={item.description} />
+                    <br /><br />
                     {this.state.editable ?
                       <>
                         <input placeholder='description' onChange={(event) => this.handleChange(event, 'description')} />
@@ -80,10 +82,10 @@ class InfoPage extends Component {
                         <button onClick={(event) => this.deleteItem(event, item.id, item.user_id)}>Delete Item</button>
                         <button onClick={(event) => this.canEdit(event, item.id, item.user_id)} >Edit Item</button>
                       </>}
-                  </li>
+                  </div>
                 )
               })}
-            </ul>
+            </div>
           </div>
         </div>
       </div>

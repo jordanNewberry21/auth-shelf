@@ -1,0 +1,19 @@
+img {
+    width: 150px;
+    height: 150px;
+}
+
+body {
+    background-color: rgb(194, 234, 241);
+}
+
+.flex {
+    display: flex;
+    width: 100%;
+    text-align: center;
+}
+
+.margin {
+    margin: .8rem;
+    
+}
