@@ -27,7 +27,9 @@ class InfoPage extends Component {
 
   editItem = (event, itemId, userId) => {
     this.props.dispatch({ type: 'EDIT_ITEM', payload: { itemId: itemId, userId: userId, state: this.state } })
-
+    this.setState({
+      editable: !this.state.editable
+    })
   }
 
   canEdit = () => {

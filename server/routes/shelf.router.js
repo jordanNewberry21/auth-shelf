@@ -62,11 +62,12 @@ router.delete("/:id/:user_id", rejectUnauthenticated, (req, res) => {
 /**
  * Update an item if it's something the logged in user added
  */
-router.put("/:id", rejectUnauthenticated, (req, res) => {
+router.put("/:id/:user_id", rejectUnauthenticated, (req, res) => {
+  console.log('Req.body', req.body)
   const query =
-    'UPDATE "item" SET "description"=$1 WHERE "id"=$2 AND "user_id"=$3';
+    'UPDATE "item" SET "description"=$1 WHERE $2 = $3 AND id=$4';
   pool
-    .query(query, [req.body.description, req.params.id, req.user.id])
+    .query(query, [req.body.state.description, req.user.id, req.body.userId, req.body.itemId])
     .then((result) => {
       res.sendStatus(200);
     })
