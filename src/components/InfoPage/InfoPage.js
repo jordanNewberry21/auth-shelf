@@ -13,15 +13,38 @@ import addItemForm from '../AddItemForm/AddItemForm';
 class InfoPage extends Component {
 
   componentDidMount() {
-    this.props.dispatch({ type: 'FETCH_SHELF'})
+    this.props.dispatch({ type: 'FETCH_SHELF' })
+  }
+
+  state = {
+    description: '',
+    editable: false
   }
 
   deleteItem = (event, itemId, userId) => {
-    this.props.dispatch({ type: 'DELETE_ITEM', payload: {itemId: itemId, userId: userId}})
+    this.props.dispatch({ type: 'DELETE_ITEM', payload: { itemId: itemId, userId: userId } })
+  }
+
+  editItem = (event, itemId, userId) => {
+    this.props.dispatch({ type: 'EDIT_ITEM', payload: { itemId: itemId, userId: userId, state: this.state } })
+
+  }
+
+  canEdit = () => {
+    this.setState({
+      editable: !this.state.editable
+    })
+  }
+
+  handleChange = (event, inputProperty) => {
+    this.setState({
+      ...this.state,
+      [inputProperty]: event.target.value
+    })
   }
 
   render() {
-    return(
+    return (
       <div className="container">
         <h2>Info Page</h2>
         <AddItemForm />
@@ -29,12 +52,21 @@ class InfoPage extends Component {
           <div className="grid-col grid-col_8">
             <ul>
               {this.props.store.shelf.map(item => {
-                return(
-                <li data={item.user_id} key={item.id}>
-                  {item.description}
-                  <img src={item.image_url} />
-                  <button onClick={(event) => this.deleteItem(event, item.id, item.user_id)}>Delete Item</button>
-                </li>
+                return (
+                  <li data={item.user_id} key={item.id}>
+                    {item.description}
+                    <img src={item.image_url} />
+                    {this.state.editable ?
+                      <>
+                        <input placeholder='description' onChange={(event) => this.handleChange(event, 'description')} />
+                        <button onClick={(event) => this.editItem(event, item.id, item.user_id)}>Save</button>
+                        <button onClick={this.canEdit}>Cancel</button>
+                      </> :
+                      <>
+                        <button onClick={(event) => this.deleteItem(event, item.id, item.user_id)}>Delete Item</button>
+                        <button onClick={this.canEdit} >Edit Item</button>
+                      </>}
+                  </li>
                 )
               })}
             </ul>
