@@ -18,7 +18,6 @@ class InfoPage extends Component {
 
   state = {
     description: '',
-    url: '',
     editable: false
   }
 
@@ -60,7 +59,6 @@ class InfoPage extends Component {
                     {this.state.editable ?
                       <>
                         <input placeholder='description' onChange={(event) => this.handleChange(event, 'description')} />
-                        <input placeholder='url' onChange={(event) => this.handleChange(event, 'url')} />
                         <button onClick={(event) => this.editItem(event, item.id, item.user_id)}>Save</button>
                         <button onClick={this.canEdit}>Cancel</button>
                       </> :
