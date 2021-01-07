@@ -22,20 +22,32 @@ class InfoPage extends Component {
   }
 
   deleteItem = (event, itemId, userId) => {
-    this.props.dispatch({ type: 'DELETE_ITEM', payload: { itemId: itemId, userId: userId } })
+    if (itemId === userId) {
+      this.props.dispatch({ type: 'DELETE_ITEM', payload: { itemId: itemId, userId: userId } })
+    } else {
+      alert ('Bad Touch!')
+    }
   }
 
   editItem = (event, itemId, userId) => {
-    this.props.dispatch({ type: 'EDIT_ITEM', payload: { itemId: itemId, userId: userId, state: this.state } })
-    this.setState({
-      editable: !this.state.editable
-    })
+    if (itemId === userId) {
+      this.props.dispatch({ type: 'EDIT_ITEM', payload: { itemId: itemId, userId: userId, state: this.state } })
+      this.setState({
+        editable: !this.state.editable
+      }) 
+    } else {
+      alert('Bad Touch!')
+    }
   }
 
-  canEdit = () => {
-    this.setState({
-      editable: !this.state.editable
-    })
+  canEdit = (event, itemId, userId) => {
+    if (itemId === userId) {
+      this.setState({
+        editable: !this.state.editable
+      })    
+    } else {
+      alert('Bad Touch!')
+    }
   }
 
   handleChange = (event, inputProperty) => {
@@ -62,11 +74,11 @@ class InfoPage extends Component {
                       <>
                         <input placeholder='description' onChange={(event) => this.handleChange(event, 'description')} />
                         <button onClick={(event) => this.editItem(event, item.id, item.user_id)}>Save</button>
-                        <button onClick={this.canEdit}>Cancel</button>
+                        <button onClick={(event) => this.canEdit(event, item.id, item.user_id)}>Cancel</button>
                       </> :
                       <>
                         <button onClick={(event) => this.deleteItem(event, item.id, item.user_id)}>Delete Item</button>
-                        <button onClick={this.canEdit} >Edit Item</button>
+                        <button onClick={(event) => this.canEdit(event, item.id, item.user_id)} >Edit Item</button>
                       </>}
                   </li>
                 )
