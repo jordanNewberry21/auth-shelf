@@ -1,89 +1,61 @@
-# REACT AUTH SHELF
+![MIT LICENSE](https://img.shields.io/github/license/carlbarfuss/auth_shelf.svg?style=flat-square)
+![REPO SIZE](https://img.shields.io/github/repo-size/carlbarfuss/auth_shelf.svg?style=flat-square)
+![TOP_LANGUAGE](https://img.shields.io/github/languages/top/carlbarfuss/auth_shelf.svg?style=flat-square)
+![FORKS](https://img.shields.io/github/forks/carlbarfuss/auth_shelf.svg?style=social)
 
-Our client, Prime Digital Academy: Room 2, has asked for an app to simulate the behavior of their shelf. That is, a list of items placed on the classroom shelf. More details about each of the features are listed below in the README.md.
+# Authorized
 
-## DOWNLOAD THIS REPOSITORY
+## Description
 
-> NOTE: Do not clone this repository.
+_Duration: 3 days_
 
-- Don't Fork or Clone. Instead, have one memeber of your group click the `Clone or Download` button and select `Download Zip`.
-- Unzip the project and start with the code in that folder.
-- Create a new GitHub project and push this code to the new repository.
-- Add members of your group to the repository.
+This project showcases using logins to designate authorized routes and access on a page for designated users.  Users can log in, add items to a virtual shelf, and edit/delete their own items.  Users are allowed to view ALL items on the shelf, while limiting access to edit/delete to only the items that they themselves have created.
 
-## CREATE DATABASE AND TABLE
+Passwords are salted/hashed using bcrypt, and filestack is used to handle the image uploads for the images for the items.
 
-Create a new database called `auth_shelf` and create a `user` table:
-user-update
+## Screen Shot
 
-```SQL
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
+[Info Page]('./SS1.png')
+[Loging Page]('./SS2.png')
 
-CREATE TABLE "item" (
-    "id" SERIAL PRIMARY KEY,
-    "description" VARCHAR (80) NOT NULL,
-    "image_url" VARCHAR (2083),
-    "user_id" INT REFERENCES "user"
-);
-```
+### Prerequisites
 
-## DEVELOPMENT SETUP
+Link to software that is required to install the app (e.g. node).
 
-- Clone the repository for your group
-- Run `npm install`
-- Create a `.env` file at the root of the project and paste this line into the file:
-  ```
-  SERVER_SESSION_SECRET=superDuperSecret
-  ```
-  While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm run server`
-- Run `npm run client`
-- Navigate to `localhost:3000`
+- [Node.js](https://nodejs.org/en/)
+- [Postgres](https://www.postgresql.org/download/)
 
-## Testing Routes with Postman
 
-To use Postman with this repo, you will need to set up requests in Postman to register a user and login a user at a minimum.
+## Installation
 
-Keep in mind that once you using the login route, Postman will manage your session cookie for you just like a browser, ensuring it is sent with each subsequent request. If you delete the `localhost` cookie in Postman, it will effectively log you out.
+This application will need an API KEY from [filestack](https://www.filestack.com).  
 
-1. Start the server - `npm run server`
-2. [Import the sample routes JSON file](./PostmanPrimeSoloRoutes.json) by clicking `Import` in Postman. Select the file.
-3. Click `Collections` and `Send` the following three calls in order:
-   1. `POST /api/user/register` registers a new user, see body to change username/password
-   2. `POST /api/user/login` will login a user, see body to change username/password
-   3. `GET /api/user` will get user information, by default it's not very much
+1. Create a database named `auth_shelf`,
+2. The queries in the `tables.sql` file are set up to create all the necessary tables and populate the needed data to allow the application to run correctly. The project is built on [Postgres](https://www.postgresql.org/download/), so you will need to make sure to have that installed. We recommend using Postico to run those queries as that was used to create the queries, 
+3. Open up your editor of choice and run an `npm install`
+4. Run `npm run server` in your terminal
+5. Run `npm run client` in your terminal
+6. The `npm run client` command will open up a new browser tab for you!
 
-After running the login route above, you will be able to try any other route you create that requires a logged in user!
+## Usage
 
-## FEATURES
+1. Upon starting the app, click "register" to register a new user
+2. Home Page will display the logged in user and their ID
+3. Info Page will take the user to the "shelf"
+  3.1 Users can addd items via the add item button (will require a description and an image url (locally stored images up to 1024x1024))
+4. Users can edit items that they own by pressing the Edit item button
+5. Users can delete items that they own by pressing the Delete Item button
+6. If a user attempts to edit/delete an item that they don't own they will be prompted by an alert.
 
-We recommend working in groups of 4 or 6 and pair programming for this project. Each pair should take on one of the following features. You will want to identify any tasks that need to be finished in a particular order as a group to avoid merge conflicts. Each of the following features should be on a separate route.
 
-### Display all Items
+## Built With
 
-The shelf (info) page should show all of the items stored in the database in a list or table.
+React
+Redux
+Passport
+Bcrypt
 
-### Add Items to the Shelf
 
-The Shelf (Info) Page should allow a user to add a new item to the database (which should immediately appear in the list).
+## Acknowledgement
+Thanks to the entire team ([Jordan Newberry](https://github.com/jordanNewberry21), [Zuber Abdikadir](https://github.com/zuberabdikadir), [Paul Kastenbauer](https://github.com/kastenbauer27), [Brady Baker](https://github.com/bradybaker), [Carl Barfuss](https://github.com/carlbarfuss)) for working together to create this learning tool.   Also a huge thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality.  
 
-> NOTE: Image url should be a full path to an existing image on the web. You should not attempt to implement image upload for this.
-
-### Delete Items from the Shelf
-
-An authenticated user should be able to delete items from the shelf if they were the one who added the item to the shelf.
-
-> NOTE: This should require client and server changes. An unauthenticated attacker from Postman should not be able to delete anything.
-
-## Stretch Goals
-
-- Ability to edit an existing item on the shelf from the info page.
-- Have anyone, not just logged in users, be able to see what is on the shelf, but not edit, remove, nor add.
-- A new route to display all items for a specific user. `/shelf/2` would display items uploaded by user with the id of `2`.
-- Filestack for image upload on the add page.
-- Style with Material-UI
