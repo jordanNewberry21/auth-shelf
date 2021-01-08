@@ -63,7 +63,6 @@ class InfoPage extends Component {
     return (
       <div className="container">
         <h2>Info Page</h2>
-        {JSON.stringify(this.props.store.user.id)}
         <AddItemForm />
         <div className="grid">
           <div >
