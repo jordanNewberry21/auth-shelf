@@ -16,7 +16,7 @@ Passwords are salted/hashed using bcrypt, and filestack is used to handle the im
 ## Screen Shot
 
 [Info Page]('./SS1.png')
-[Loging Page]('./SS2.png')
+[Login Page]('./SS2.png')
 
 ### Prerequisites
 
