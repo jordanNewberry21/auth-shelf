@@ -1,7 +1,7 @@
-![MIT LICENSE](https://img.shields.io/github/license/carlbarfuss/auth_shelf.svg?style=flat-square)
-![REPO SIZE](https://img.shields.io/github/repo-size/carlbarfuss/auth_shelf.svg?style=flat-square)
-![TOP_LANGUAGE](https://img.shields.io/github/languages/top/carlbarfuss/auth_shelf.svg?style=flat-square)
-![FORKS](https://img.shields.io/github/forks/carlbarfuss/auth_shelf.svg?style=social)
+![MIT LICENSE](https://img.shields.io/github/license/jordanNewberry21/auth_shelf.svg?style=flat-square)
+![REPO SIZE](https://img.shields.io/github/repo-size/jordanNewberry21/auth_shelf.svg?style=flat-square)
+![TOP_LANGUAGE](https://img.shields.io/github/languages/top/jordanNewberry21/auth_shelf.svg?style=flat-square)
+![FORKS](https://img.shields.io/github/forks/jordanNewberry21/auth_shelf.svg?style=social)
 
 # Authorized
 
